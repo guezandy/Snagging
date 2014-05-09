@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.snagtag"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<!-- PUSH NOTIFICATION PERMISSIONS -->
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+	
+	<permission android:name="com.example.snagtag.permission.C2D_MESSAGE"
+    android:protectionLevel="signature"/>
+	<uses-permission android:name="com.example.snagtag.permission.C2D_MESSAGE" />
+	
+    <application
+        android:name="activities.SnagTagApplication"
+        
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppCompat.Light" >
+        
+        <activity
+            android:name="activities.LoginActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.facebook.LoginActivity"
+            android:label="Login" >
+            <intent-filter>
+
+            </intent-filter>
+        </activity>
+        <!-- OPENS ON NFC -->
+        <activity
+            android:name="activities.CartDrawerActivity"
+            android:label="Snag Tag"
+            android:launchMode="singleTop" >
+            <meta-data android:name="android.app.searchable"
+            android:resource="@xml/searchable" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+        		<action android:name="android.intent.action.SEARCH" />      
+            </intent-filter>
+             <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                 <data android:mimeType="application/com.example.snagtag.tag" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.nfc.action.TAG_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/com.example.snagtag.tag" />
+            </intent-filter>
+        </activity>
+        
+        <!--  Service for push notifications -->
+        <service android:name="com.parse.PushService" />
+		<receiver android:name="com.parse.ParseBroadcastReceiver">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+				<action android:name="android.intent.action.USER_PRESENT" />
+			</intent-filter>
+		</receiver>
+		<receiver android:name="com.parse.GcmBroadcastReceiver"
+			android:permission="com.google.android.c2dm.permission.SEND">
+			<intent-filter>
+				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+				<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+				<!--
+				  IMPORTANT: If you change the package name of this sample app,
+				  change "com.parse.tutorials.pushnotifications" in the lines
+				  below to match the new package name.
+				-->
+				<category android:name="com.example.snagtag.activities" />
+			</intent-filter>
+		</receiver>
+    </application>
+
+</manifest>

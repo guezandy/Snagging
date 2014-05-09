@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:textAlignment="center" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/cart_details"
+        android:textAlignment="gravity"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/subtotal"
+            android:textAlignment="gravity"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dollar_symbol"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/subtotal"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="right"
+            android:text="@string/dollars_zero"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/shipping"
+            android:textAlignment="gravity"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dollar_symbol"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/shipping"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="right"
+            android:text="@string/dollars_zero"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/tax"
+            android:textAlignment="gravity"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dollar_symbol"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/taxRate"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="right"
+            android:text="@string/dollars_zero"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/total"
+            android:textAlignment="gravity"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dollar_symbol"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="right"
+            android:text="@string/dollars_zero"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </TableRow>
+
+</TableLayout>
