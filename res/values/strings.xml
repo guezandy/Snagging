@@ -14,6 +14,8 @@
     <string name="action_search">Search</string>
     <string name="action_profile">Profile</string>
     <string name="action_cart">Cart</string>
+    <string name="action_home">Home</string>
+    <string name="action_share">Share</string>
     <string name="cart_close">Cart Close</string>
     <string name="cart_open">Cart Open</string>
     <string name="drawer_open">Open navigation drawer</string>
@@ -29,7 +31,18 @@
     <string name="cart_details">Cart Details</string>
     <string name="dollar_symbol">$</string>
     <string name="dollars_zero">0.00</string>
-    
-    
+    <string name="skip">Skip To Cart Drawer</string>
+    <string name="Recommendation">Recommend</string>
+    <string name="fname">First Name</string>
+    <string name="lname">Last Name</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="emptyString"></string>
+    <string name="purchase">Purchased</string>
     
 </resources>

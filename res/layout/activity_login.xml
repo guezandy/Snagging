@@ -8,24 +8,73 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoginActivity" >
-    
-    <TextView
+
+    <ImageView
+        android:id="@+id/imageView1"
         android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:src="@drawable/snaglogo" />
+
+    <EditText
+        android:id="@+id/loginUsername"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:gravity="center"
-        android:text="@string/login_intro"
-        android:textSize="18sp" />
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:text="@string/username" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/loginPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:text="@string/password" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/logButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login" />
+
+        <Button
+            android:id="@+id/regButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register" />
+
+    </LinearLayout>
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/fbLoginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         android:text="@string/login"
         android:textColor="#fff"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/button_login"
         />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/skip" />
+
+    <TextView
+        android:id="@+id/errorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/emptyString" />
+
 </LinearLayout>

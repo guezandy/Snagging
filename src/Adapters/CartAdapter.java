@@ -62,7 +62,7 @@ public class CartAdapter extends ParseQueryAdapter<ParseObject> {
         Calendar cal = Calendar.getInstance();
         Date time = cal.getTime();
         super.getItemView(cartItem, v, parent);
-        Log.i(TAG,"Adde history object");
+        Log.i(TAG,"Added history object");
         ParseObject testingTagHistory = new ParseObject("TagHistory");
         ParseUser user = ParseUser.getCurrentUser();
         testingTagHistory.add("from", user);

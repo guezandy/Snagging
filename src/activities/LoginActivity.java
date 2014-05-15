@@ -7,10 +7,15 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.snagtag.R;
 import com.parse.LogInCallback;
@@ -21,24 +26,61 @@ import com.parse.ParseUser;
 
 public class LoginActivity extends Activity {
     private final String TAG = LoginActivity.class.getSimpleName();
+    private Button fbLoginButton;
     private Button loginButton;
+    private Button register;
+    private Button skip;
     private Dialog progressDialog;
+    
+    private EditText username;
+    private EditText password;
+    private String mUserEmail;
+    private String mPassword;
+    private TextView mErrorMessage;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG,"onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        username = (EditText) findViewById(R.id.loginUsername);
+        password = (EditText) findViewById(R.id.loginPassword);
+        mErrorMessage = (TextView) findViewById(R.id.errorMessage);
         
         // Fetch Facebook user info if the session is active
-        loginButton = (Button) findViewById(R.id.loginButton);
-		loginButton.setOnClickListener(new View.OnClickListener() {
+        fbLoginButton = (Button) findViewById(R.id.fbLoginButton);
+		fbLoginButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				onFBLoginButtonClicked();
+			}
+		});
+		
+		register = (Button) findViewById(R.id.regButton);
+		register.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View V) {
+				Intent i = new Intent(LoginActivity.this, RegisterNewAccountActivity.class);
+				startActivity(i);
+			}
+		});
+		
+		loginButton = (Button) findViewById(R.id.logButton);
+		loginButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View V) {
 				onLoginButtonClicked();
 			}
 		});
-
+		
+		skip = (Button) findViewById(R.id.button1);
+		skip.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View V) {
+				Intent i = new Intent(LoginActivity.this, CartDrawerActivity.class);
+				startActivity(i);
+			}
+		});
 		// Check if there is a currently logged in user
 		// and they are linked to a Facebook account.
 		ParseUser currentUser = ParseUser.getCurrentUser();
@@ -63,10 +105,58 @@ public class LoginActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 		ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
 	}
+    
+    /**
+     * Handles regular Login
+     */
+    private void onLoginButtonClicked() {
+        LoginActivity.this.progressDialog = ProgressDialog.show(
+                LoginActivity.this, "", "Logging in...", true);
+    		if(validateFields()) {
+    				mUserEmail = username.getText().toString();
+    			    mPassword =  password.getText().toString();
+    			if (TextUtils.isEmpty(mUserEmail) || TextUtils.isEmpty(mPassword)) {
+    				mErrorMessage.setText("Please enter a valid username and password.");
+    			} else {
+    				//showProgress();
+    				userLogin();
+    			}
+    		}
+    		else {
+    			Toast.makeText(getApplicationContext(), "Please Insert Username and Password", Toast.LENGTH_SHORT).show();
+    		}
+    	}
+
+//TODO: set the limits on sizes of username length and password length
+    	private boolean validateFields() {
+    		if (username.length()>0 && password.getText().length()>0) {
+    			return true;
+    		} else {
+    			return false;
+    		}
+    	}
+    	
+    	/**
+    	 * Handles parse user login
+    	 */
+    	public void userLogin() {
+    		ParseUser.logInInBackground(mUserEmail, mPassword, new LogInCallback() {
+    			  public void done(ParseUser user, ParseException e) {
+    			    if (user != null) {
+    	    			Toast.makeText(getApplicationContext(), "Welcome, "+user.getString("fname"), Toast.LENGTH_SHORT).show();
+    	    			Intent i = new Intent(LoginActivity.this, CartDrawerActivity.class);
+    	    			startActivity(i);
+    			    } else {
+    			      // Signup failed. Look at the ParseException to see what happened.
+    	    			Toast.makeText(getApplicationContext(), "Login failed please try again", Toast.LENGTH_SHORT).show();	
+    			    }
+    			  }
+    			});
+    	}
     /**
      * Handles facebook login request.
      */
-    private void onLoginButtonClicked() {
+    private void onFBLoginButtonClicked() {
         Log.i(TAG,"onLoginButtonClicked");
         LoginActivity.this.progressDialog = ProgressDialog.show(
                 LoginActivity.this, "", "Logging in...", true);

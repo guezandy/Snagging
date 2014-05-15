@@ -38,7 +38,7 @@ public class TagHistoryAdapter extends ParseQueryAdapter<ParseObject> {
                 ParseUser user = ParseUser.getCurrentUser();
                 ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("TagHistory");
                 // set up the query on the Follow table
-                query.whereEqualTo("from",user);
+                query.whereEqualTo("from" ,user);
                 return query;
             }
         });

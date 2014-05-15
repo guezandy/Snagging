@@ -21,25 +21,25 @@
 				android:layout_width="fill_parent"
 				android:layout_height="fill_parent">
 
-			    
+				<FrameLayout
+				    android:id="@+id/tag_history_frame"
+				    android:layout_width="fill_parent"
+				    android:layout_height="fill_parent"
+				    android:background="#FFFF00" >
+				</FrameLayout>
 			    
 				<FrameLayout
-					android:id="@+id/closet_frame"
+					android:id="@+id/purchased_frame"
 					android:layout_width="fill_parent"
 					android:layout_height="fill_parent" 
 					android:background="#FF00FF"/>
-				
-				<FrameLayout
-					android:id="@+id/tag_history_frame"
-					android:layout_width="fill_parent"
-					android:layout_height="fill_parent" 
-					android:background="#FFFF00"/>
 
 				<FrameLayout
-					android:id="@+id/settings_frame"
+					android:id="@+id/recommendation_frame"
 					android:layout_width="fill_parent"
 					android:layout_height="fill_parent" />
 
 			</FrameLayout>
+
 	</LinearLayout>
 </TabHost>

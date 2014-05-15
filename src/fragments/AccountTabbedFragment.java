@@ -25,9 +25,11 @@ public class AccountTabbedFragment extends Fragment implements OnTabChangeListen
     // Constants
     //
     private final TabDefinition[] TAB_DEFINITIONS = new TabDefinition[] {
-        new SimpleTabDefinition(R.id.closet_frame, R.layout.fragment_closet, R.string.closet, R.id.tabTitle, new ClosetFragment()),
-        new SimpleTabDefinition(R.id.tag_history_frame, R.layout.fragment_tag_history, R.string.tag_history, R.id.tabTitle, new TagHistoryFragment()),
-        new SimpleTabDefinition(R.id.settings_frame, R.layout.fragment_settings, R.string.settings, R.id.tabTitle, new SettingsFragment()),
+        //new SimpleTabDefinition(R.id.closet_frame, R.layout.fragment_closet, R.string.closet, R.id.tabTitle, new ClosetFragment()),
+        new SimpleTabDefinition(R.id.purchased_frame, R.layout.fragment_purchased, R.string.purchase, R.id.tabTitle, new PurchasedFragment()),
+    	new SimpleTabDefinition(R.id.tag_history_frame, R.layout.fragment_tag_history, R.string.tag_history, R.id.tabTitle, new TagHistoryFragment()),
+        new SimpleTabDefinition(R.id.recommendation_frame, R.layout.fragment_recommendation, R.string.Recommendation, R.id.tabTitle, new RecommendationFragment()),
+        //new SimpleTabDefinition(R.id.settings_frame, R.layout.fragment_settings, R.string.settings, R.id.tabTitle, new SettingsFragment()),
     };
     
     //

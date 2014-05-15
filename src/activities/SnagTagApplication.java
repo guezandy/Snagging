@@ -32,7 +32,7 @@ public class SnagTagApplication extends Application {
         /*
          * Fill in this section with your Parse credentials
          */
-        Parse.initialize(this, "84MWD1exP97b7T2NiAGKpEmFXR6t0SEXiMzCd6gB", "8AJ6q1JgGUkbtmXm6XO4cPydJV2tw4OLtDe9Z5DX");
+        Parse.initialize(this, "cuLGNujAgxROlSMPh1FF58asDN8aGc4LCDcsOpk2", "aHQ9A0SjhZTw1r64dQ51H8EDWOp8PREmRacwHO9Y");
         ParseFacebookUtils.initialize(getString(R.string.facebook_id));
 
         /*
