@@ -1,4 +1,5 @@
 package Adapters;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -23,35 +24,37 @@ import com.parse.ParseUser;
  * star. 
  */
 
-public class TagHistoryAdapter extends ParseQueryAdapter<ParseObject> {
+public class PurchasedAdapter extends ParseQueryAdapter<ParseObject> {
+    private static final String TAG = PurchasedAdapter.class.getSimpleName();
 
-    private static final String TAG = TagHistoryAdapter.class.getSimpleName();
-
-    public TagHistoryAdapter(Context context) {
+    /**
+     * Constructs a ParseQueryAdapter on the user purchase relation 
+     */
+    public PurchasedAdapter(Context context) {
         super(context, new ParseQueryAdapter.QueryFactory<ParseObject>() {
+            
             public ParseQuery<ParseObject> create() {
                 Log.i(TAG, "Constructor");
-                // Here we can configure a ParseQuery to display
-                // only top-rated meals.
-                
+
                 // set up the query on the relation
                 ParseUser user = ParseUser.getCurrentUser();
-                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("TagHistory");
-                // set up the query on the Follow table
-                query.whereEqualTo("from" ,user);
+                ParseRelation<ParseObject> cart = user.getRelation("purchased");
+                ParseQuery<ParseObject> query = cart.getQuery();
+                query.orderByDescending("createdAt");
+                query.setCachePolicy(ParseQuery.CachePolicy.CACHE_ELSE_NETWORK);
                 return query;
             }
         });
+        Log.i(TAG,"closet adapter constructor");
+
     }
 
     @Override
     public View getItemView(ParseObject clothingEntity, View v, ViewGroup parent) {
         Log.i(TAG, "getItemView");
-
         if (v == null) {
             v = View.inflate(getContext(), R.layout.row_tag_history_entity, null);
         }
-
         super.getItemView(clothingEntity, v, parent);
 
         ParseImageView itemImage = (ParseImageView) v.findViewById(R.id.item_image);
@@ -66,13 +69,12 @@ public class TagHistoryAdapter extends ParseQueryAdapter<ParseObject> {
             });
         }
 
-        TextView descriptionTextView = (TextView) v
-                .findViewById(R.id.item_description);
-        System.out.println("Item found: "+clothingEntity.getString("description"));
+        TextView descriptionTextView = (TextView) v.findViewById(R.id.item_description);
         descriptionTextView.setText(clothingEntity.getString("description"));
 
         TextView priceTextView = (TextView) v.findViewById(R.id.item_price);
         priceTextView.setText("Price: "+clothingEntity.getNumber("price"));
+        
         return v;
     }
 

@@ -155,6 +155,9 @@ public class CartDrawerActivity extends ActionBarActivity implements NFCHandler 
         }
         switch(item.getItemId())
         {
+        	case R.id.action_home:
+        		updateMainContent(SNAG_FRAGMENT, null);
+        		return true;
             case R.id.action_cart:
                 Log.i(TAG,"Cart Item Clicked");
                 if(cartDrawerLayout.isDrawerOpen(cartDrawerFrame)){
@@ -194,11 +197,13 @@ public class CartDrawerActivity extends ActionBarActivity implements NFCHandler 
                 break;
             default:
                 //Default sets Home Fragment
+            	System.out.println("Home fragment selected");
                 fragment = new HomeFragment();
         }
         
         fragment.setArguments(args);
         // update the main content by replacing fragments
+        System.out.println("Starting fragment");
         fragmentManager.beginTransaction().replace(R.id.activity_frame, fragment).addToBackStack( "tag" ).commit();
         cartDrawerLayout.closeDrawer(cartDrawerFrame);
         

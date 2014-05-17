@@ -73,7 +73,7 @@ public class LoginActivity extends Activity {
 			}
 		});
 		
-		skip = (Button) findViewById(R.id.button1);
+		skip = (Button) findViewById(R.id.colors);
 		skip.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View V) {

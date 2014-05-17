@@ -44,5 +44,10 @@
     <string name="female">Female</string>
     <string name="emptyString"></string>
     <string name="purchase">Purchased</string>
+    <string name="close">Close</string>
+    <string name="styles">Styles</string>
+    <string name="url">Url</string>
+    <string name="sizes">Sizes</string>
+    <string name="add2Cart">Add to Cart</string>
     
 </resources>

@@ -10,7 +10,7 @@
     tools:context=".LoginActivity" >
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/itemImg"
         android:layout_width="wrap_content"
         android:layout_height="150dp"
         android:src="@drawable/snaglogo" />
@@ -65,7 +65,7 @@
         />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/colors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
