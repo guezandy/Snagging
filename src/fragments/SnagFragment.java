@@ -1,5 +1,8 @@
 package fragments;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import com.example.snagtag.R;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
@@ -122,13 +125,14 @@ public class SnagFragment extends Fragment {
         sizeMenu.getMenu().add("Large");
     	
     	ParseQuery<ParseObject> query = ParseQuery.getQuery("ClothingEntity");
- //should be nfcid! insread of "wJV..";
-    	query.getInBackground("wJVgzJPWaA", new GetCallback<ParseObject>() {
+ //should be nfcid! insread of "wJVgzJPWaA";
+    	query.getInBackground(nfcid, new GetCallback<ParseObject>() {
 		@Override
 		public void done(ParseObject clothingEntity, ParseException e) {
 			// TODO Auto-generated method stub
     	    if (e == null) {
     	    	entity = clothingEntity;
+    	    	addToHistory();
       	      // Object will be your clothing item!
     	    	price.setText("$"+clothingEntity.getNumber("price").toString());
     	    	description.setText(clothingEntity.getString("description").toString());
@@ -170,6 +174,25 @@ public class SnagFragment extends Fragment {
         cart.add(entity);
         Toast.makeText(this.getActivity(), "Added "+entity.getString("description")+" to cart", Toast.LENGTH_SHORT).show();
         user.saveEventually();
+    }
+    
+    private void  addToHistory(){
+    	//creates tag history relation
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseRelation<ParseObject> history = user.getRelation("TagHistory");
+        history.add(entity);
+        Toast.makeText(this.getActivity(), "Added "+entity.getString("description")+" to history", Toast.LENGTH_SHORT).show();
+        user.saveEventually();
+        
+        Calendar cal = Calendar.getInstance();
+        Date time = cal.getTime();
+        Log.i(TAG,"Added history object");
+//        ParseObject testingTagHistory = new ParseObject("TagHistory");
+//        testingTagHistory.add("from", user);
+//        testingTagHistory.add("to", entity);
+//        testingTagHistory.add("date", time);
+//        testingTagHistory.saveEventually();
+        
     }
 
     public void setEntityId(String clothingEntityId) {

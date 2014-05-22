@@ -2,6 +2,7 @@ package fragments;
 
 import com.parse.ParseObject;
 
+import Adapters.CartAdapter;
 import Adapters.TagHistoryAdapter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +11,7 @@ import android.util.Log;
 
 public class TagHistoryFragment extends ListFragment{
     private final String TAG = TagHistoryFragment.class.getSimpleName();
-    private TagHistoryAdapter cartAdapter;
+    private TagHistoryAdapter tagAdapter;
     public TagHistoryFragment() {
         // TODO Auto-generated constructor stub
         
@@ -22,7 +23,7 @@ public class TagHistoryFragment extends ListFragment{
         Log.i(TAG, "onActivityCreated");
         super.onActivityCreated(savedInstanceState);
         getListView().setClickable(false);
-        cartAdapter = new TagHistoryAdapter(this.getActivity().getApplicationContext());
-        setListAdapter(cartAdapter);
+        tagAdapter = new TagHistoryAdapter(this.getActivity().getApplicationContext());
+        setListAdapter(tagAdapter);
     }
 }

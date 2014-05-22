@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -57,6 +58,8 @@ public class LoginActivity extends Activity {
 		});
 		
 		register = (Button) findViewById(R.id.regButton);
+		Typeface font = Typeface.createFromAsset(getAssets(), "Roboto-Regular.ttf");  
+		register.setTypeface(font);
 		register.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View V) {
@@ -117,19 +120,21 @@ public class LoginActivity extends Activity {
     			    mPassword =  password.getText().toString();
     			if (TextUtils.isEmpty(mUserEmail) || TextUtils.isEmpty(mPassword)) {
     				mErrorMessage.setText("Please enter a valid username and password.");
+    		        this.progressDialog.dismiss();
     			} else {
     				//showProgress();
     				userLogin();
     			}
     		}
     		else {
-    			Toast.makeText(getApplicationContext(), "Please Insert Username and Password", Toast.LENGTH_SHORT).show();
+    			this.progressDialog.dismiss();
+    			Toast.makeText(getApplicationContext(), "Please Insert valid Username and Password", Toast.LENGTH_SHORT).show();	
     		}
     	}
 
 //TODO: set the limits on sizes of username length and password length
     	private boolean validateFields() {
-    		if (username.length()>0 && password.getText().length()>0) {
+    		if (username.length()>5 && password.getText().length()>2) {
     			return true;
     		} else {
     			return false;

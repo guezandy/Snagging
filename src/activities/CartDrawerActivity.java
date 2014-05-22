@@ -8,6 +8,8 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import utils.IntentIntegrator;
+import utils.IntentResult;
 import utils.NfcUtils;
 
 import com.example.snagtag.R;
@@ -20,6 +22,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import fragments.AccountTabbedFragment;
+import fragments.BarcodeReaderFragment;
 import fragments.CartFragment;
 import fragments.HomeFragment;
 import fragments.SnagFragment;
@@ -63,6 +66,7 @@ public class CartDrawerActivity extends ActionBarActivity implements NFCHandler 
 	private static final int HOME_FRAGMENT = 0;
     private static final int ACCOUNT_FRAGMENT = 1;
     private static final int SNAG_FRAGMENT = 2;
+    private static final int BARCODE_FRAGMENT = 3;
 
     private static final String PLACEHOLDER_STRING = "";
     
@@ -109,6 +113,7 @@ public class CartDrawerActivity extends ActionBarActivity implements NFCHandler 
         }
         
         prepareCartDrawer();
+
         if (savedInstanceState == null) {
             updateMainContent(HOME_FRAGMENT,PLACEHOLDER_STRING);
         }
@@ -156,7 +161,8 @@ public class CartDrawerActivity extends ActionBarActivity implements NFCHandler 
         switch(item.getItemId())
         {
         	case R.id.action_home:
-        		updateMainContent(SNAG_FRAGMENT, null);
+        		//updateMainContent(SNAG_FRAGMENT, null);
+            	updateMainContent(BARCODE_FRAGMENT, null);
         		return true;
             case R.id.action_cart:
                 Log.i(TAG,"Cart Item Clicked");
@@ -169,6 +175,9 @@ public class CartDrawerActivity extends ActionBarActivity implements NFCHandler 
             case R.id.action_search:
                 Log.i(TAG,"Search Item Clicked");
                 return true;
+            case R.id.action_barcode:
+            	updateMainContent(BARCODE_FRAGMENT, null);
+            	return true;
             case R.id.action_profile:
                 Log.i(TAG,"Profile Item Clicked");
                 updateMainContent(ACCOUNT_FRAGMENT,PLACEHOLDER_STRING);
@@ -195,6 +204,9 @@ public class CartDrawerActivity extends ActionBarActivity implements NFCHandler 
                 fragment = new SnagFragment();
                 ((SnagFragment) fragment).setEntityId(clothingEntityId);
                 break;
+            case BARCODE_FRAGMENT:
+            	fragment = new BarcodeReaderFragment();
+            	break;
             default:
                 //Default sets Home Fragment
             	System.out.println("Home fragment selected");
@@ -268,6 +280,20 @@ public class CartDrawerActivity extends ActionBarActivity implements NFCHandler 
             // If the user is not logged in, go to the
             // activity showing the login view.
             startLoginActivity();
+        }
+        
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+        	if(bundle.getString("bc")!=null) {
+        		final String bc = bundle.getString("bc");
+        		System.out.println("Got from bundle: "+ bc);
+        		bundle.clear();
+        		updateMainContent(SNAG_FRAGMENT, bc);
+        	} else {
+        		System.out.println("Nothing inside bc string");
+        	}
+        } else {
+        	System.out.println("bundle is null");
         }
         
         //not sure if to put this inside currentUser != null
@@ -460,6 +486,28 @@ public class CartDrawerActivity extends ActionBarActivity implements NFCHandler 
 			return content;
 		}
 		return null;
+	}
+	
+	
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		//retrieve scan result
+		System.out.println("Received scan results! inside cart drawer activity");
+		IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+		if (scanningResult != null) {
+			//we have a result
+			String scanContent = scanningResult.getContents();
+			String scanFormat = scanningResult.getFormatName();
+			Toast toast = Toast.makeText(CartDrawerActivity.this, 
+		            "Read: "+scanContent, Toast.LENGTH_SHORT);
+		             toast.show();
+			System.out.println("Scan Content: "+ scanContent);
+			updateMainContent(SNAG_FRAGMENT, scanContent);
+			
+		} else {
+		    Toast toast = Toast.makeText(CartDrawerActivity.this, 
+		            "No scan data received!", Toast.LENGTH_SHORT);
+		             toast.show();
+		}
 	}
 
 }

@@ -62,13 +62,6 @@ public class CartAdapter extends ParseQueryAdapter<ParseObject> {
         Calendar cal = Calendar.getInstance();
         Date time = cal.getTime();
         super.getItemView(cartItem, v, parent);
-        Log.i(TAG,"Added history object");
-        ParseObject testingTagHistory = new ParseObject("TagHistory");
-        ParseUser user = ParseUser.getCurrentUser();
-        testingTagHistory.add("from", user);
-        testingTagHistory.add("to", cartItem);
-        testingTagHistory.add("date", time);
-        testingTagHistory.saveEventually();
         
         ParseImageView itemImage = (ParseImageView) v.findViewById(R.id.item_image);
         ParseFile photoFile = cartItem.getParseFile("image");

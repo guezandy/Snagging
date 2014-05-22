@@ -1,16 +1,20 @@
 package activities;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import android.app.ActionBar;
 import com.example.snagtag.R;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
@@ -23,6 +27,7 @@ import com.parse.SignUpCallback;
  * First and Last name, and a password. After validation, it creates a new ParseUser and redirects 
  * the user back to the login page for Authentication.
  */
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class RegisterNewAccountActivity extends Activity {
 
 
@@ -41,6 +46,11 @@ public class RegisterNewAccountActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_register);
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		
+		
 		
 		mEditFirstName = (EditText) findViewById(R.id.fname);
 		mEditLastName = (EditText) findViewById(R.id.lname);
@@ -149,5 +159,17 @@ public class RegisterNewAccountActivity extends Activity {
 			    }
 		}
 		});
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            // app icon in action bar clicked; goto parent activity.
+	            this.finish();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
 	}
 }

@@ -53,12 +53,17 @@ public class CartFragment extends ListFragment {
         Log.i(TAG, "onActivityCreated");
         super.onActivityCreated(savedInstanceState);
         getListView().setClickable(false);
-        cartAdapter = new CartAdapter(this.getActivity().getApplicationContext());
-        setListAdapter(cartAdapter);
+        
         LayoutInflater inflater = this.getLayoutInflater(savedInstanceState);
         cartDetails = (TableLayout)inflater.inflate(
                 R.layout.layout_cart_details, null);
-        getListView().addFooterView(cartDetails);
+        getListView().addHeaderView(cartDetails);
+        
+        cartAdapter = new CartAdapter(this.getActivity().getApplicationContext());
+        setListAdapter(cartAdapter);
+
+ 
+        //getListView().addFooterView(cartDetails);
         updateCartDetails();
     }
     /**
@@ -162,7 +167,7 @@ public class CartFragment extends ListFragment {
         DecimalFormat f = new DecimalFormat("#0.00");
         subtotalView.setText(f.format(subtotal));
         shippingView.setText(f.format(shipping));
-        taxView.setText(f.format(subtotal));
+        taxView.setText(f.format(subtotal*taxRate));
         double total = subtotal*(1+taxRate)+shipping;
         totalView.setText(f.format(total));
     }

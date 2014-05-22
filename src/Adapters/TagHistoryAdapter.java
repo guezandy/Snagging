@@ -36,10 +36,18 @@ public class TagHistoryAdapter extends ParseQueryAdapter<ParseObject> {
                 
                 // set up the query on the relation
                 ParseUser user = ParseUser.getCurrentUser();
-                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("TagHistory");
-                // set up the query on the Follow table
-                query.whereEqualTo("from" ,user);
-                return query;
+                ParseRelation<ParseObject> cart = user.getRelation("TagHistory");
+                ParseQuery<ParseObject> query = cart.getQuery();
+                query.setCachePolicy(ParseQuery.CachePolicy.CACHE_ELSE_NETWORK);
+                query.orderByDescending("date");
+                return query;      
+                
+//by table
+//                ParseUser user = ParseUser.getCurrentUser();
+//                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("TagHistory");
+//                // set up the query on the Follow table
+//                query.whereEqualTo("from" ,user);
+//                return query;
             }
         });
     }
@@ -53,7 +61,7 @@ public class TagHistoryAdapter extends ParseQueryAdapter<ParseObject> {
         }
 
         super.getItemView(clothingEntity, v, parent);
-
+//System.out.println("Entity id: "+clothingEntity.getObjectId());
         ParseImageView itemImage = (ParseImageView) v.findViewById(R.id.item_image);
         ParseFile photoFile = clothingEntity.getParseFile("image");
         if (photoFile != null) {

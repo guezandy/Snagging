@@ -5,6 +5,7 @@
     android:background="@color/date_color"
     android:orientation="vertical" >
 
+    
     <TextView
         android:id="@+id/tabTitle"
         android:layout_width="fill_parent"
@@ -31,12 +32,11 @@
           <!-- android:maxHeight="280dp" android:maxWidth="280dp" -->     
 
 
-        <TextView
+        <ui.TextViewRobotoThin
             android:id="@+id/price"
+            android:textSize = "40sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

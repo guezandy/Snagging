@@ -6,17 +6,22 @@ import fragments.tabbed.SimpleTabDefinition;
 import fragments.tabbed.TabDefinition;
 
 import activities.LoginActivity;
+import android.annotation.TargetApi;
+import android.app.ActionBar;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class AccountTabbedFragment extends Fragment implements OnTabChangeListener {
 
     private final String TAG = AccountTabbedFragment.class.getSimpleName();
@@ -58,7 +63,6 @@ public class AccountTabbedFragment extends Fragment implements OnTabChangeListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         _viewRoot = inflater.inflate(R.layout.fragment_account_tabs, null);
-        
         _tabHost = (TabHost)_viewRoot.findViewById(android.R.id.tabhost);
         _tabHost.setup();
         
@@ -73,6 +77,9 @@ public class AccountTabbedFragment extends Fragment implements OnTabChangeListen
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
+        
+		ActionBar actionBar = this.getActivity().getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
  
         _tabHost.setOnTabChangedListener(this);
         
@@ -114,5 +121,17 @@ public class AccountTabbedFragment extends Fragment implements OnTabChangeListen
                 .commit();
         }
     }
+    
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            // app icon in action bar clicked; goto parent activity.
+	            this.getActivity().finish();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 
 }
