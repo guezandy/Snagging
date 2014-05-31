@@ -1,4 +1,6 @@
 package activities;
+import jQuery.SnagActivityjQuery;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -80,7 +82,7 @@ public class LoginActivity extends Activity {
 		skip.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View V) {
-				Intent i = new Intent(LoginActivity.this, CartDrawerActivity.class);
+				Intent i = new Intent(LoginActivity.this, SnagActivityjQuery.class);
 				startActivity(i);
 			}
 		});
